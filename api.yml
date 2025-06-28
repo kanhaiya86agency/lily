@@ -1,0 +1,1276 @@
+{
+  'openapi': '3.0.0',
+  'paths':
+    {
+      '/':
+        {
+          'get':
+            {
+              'operationId': 'AppController_getHello',
+              'parameters': [],
+              'responses': {'200': {'description': ''}},
+              'tags': ['App'],
+            },
+        },
+      '/auth/login':
+        {
+          'post':
+            {
+              'operationId': 'AuthController_login',
+              'parameters': [],
+              'requestBody':
+                {
+                  'required': true,
+                  'content':
+                    {
+                      'application/json':
+                        {'schema': {'$ref': '#/components/schemas/LoginDto'}},
+                    },
+                },
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'User logged in successfully',
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {'$ref': '#/components/schemas/ApiResponseDto'},
+                            },
+                        },
+                    },
+                },
+              'summary': 'Login user with email or phone',
+              'tags': ['Auth'],
+            },
+        },
+      '/auth/register':
+        {
+          'post':
+            {
+              'operationId': 'AuthController_register',
+              'parameters': [],
+              'requestBody':
+                {
+                  'required': true,
+                  'content':
+                    {
+                      'application/json':
+                        {
+                          'schema':
+                            {'$ref': '#/components/schemas/RegisterDto'},
+                        },
+                    },
+                },
+              'responses':
+                {
+                  '201':
+                    {
+                      'description': 'User registered successfully',
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {'$ref': '#/components/schemas/ApiResponseDto'},
+                            },
+                        },
+                    },
+                },
+              'summary': 'Register a new user',
+              'tags': ['Auth'],
+            },
+        },
+      '/user/profile':
+        {
+          'put':
+            {
+              'operationId': 'UserController_updateProfile',
+              'parameters': [],
+              'requestBody':
+                {
+                  'required': true,
+                  'content':
+                    {
+                      'application/json':
+                        {
+                          'schema':
+                            {'$ref': '#/components/schemas/UpdateProfileDto'},
+                        },
+                    },
+                },
+              'responses':
+                {'200': {'description': 'User profile updated successfully'}},
+              'security': [{'jwt': []}],
+              'summary': 'Update user profile',
+              'tags': ['User'],
+            },
+          'get':
+            {
+              'operationId': 'UserController_getProfile',
+              'parameters': [],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'User profile',
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {'$ref': '#/components/schemas/ApiResponseDto'},
+                            },
+                        },
+                    },
+                },
+              'security': [{'jwt': []}],
+              'summary': 'Get user profile',
+              'tags': ['User'],
+            },
+        },
+      '/user/password':
+        {
+          'put':
+            {
+              'operationId': 'UserController_updatePassword',
+              'parameters': [],
+              'requestBody':
+                {
+                  'required': true,
+                  'content':
+                    {
+                      'application/json':
+                        {
+                          'schema':
+                            {'$ref': '#/components/schemas/UpdatePasswordDto'},
+                        },
+                    },
+                },
+              'responses':
+                {'200': {'description': 'Password updated successfully'}},
+              'security': [{'jwt': []}],
+              'summary': 'Update user password',
+              'tags': ['User'],
+            },
+        },
+      '/rating':
+        {
+          'post':
+            {
+              'operationId': 'RatingController_giveRating',
+              'parameters': [],
+              'requestBody':
+                {
+                  'required': true,
+                  'content':
+                    {
+                      'application/json':
+                        {
+                          'schema':
+                            {'$ref': '#/components/schemas/CreateRatingDto'},
+                        },
+                    },
+                },
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Rating created successfully',
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {'$ref': '#/components/schemas/ApiResponseDto'},
+                            },
+                        },
+                    },
+                },
+              'security': [{'jwt': []}],
+              'summary': 'Post service rating',
+              'tags': ['Rating'],
+            },
+        },
+      '/rating/{serviceId}':
+        {
+          'get':
+            {
+              'operationId': 'RatingController_getServiceProductRatings',
+              'parameters':
+                [
+                  {
+                    'name': 'serviceId',
+                    'required': true,
+                    'in': 'path',
+                    'schema': {'type': 'string'},
+                  },
+                ],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Service rating list',
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {'$ref': '#/components/schemas/ApiResponseDto'},
+                            },
+                        },
+                    },
+                },
+              'summary': 'Service rating list',
+              'tags': ['Rating'],
+            },
+        },
+      '/communication/rooms':
+        {
+          'get':
+            {
+              'operationId': 'CommunicationController_getCommunicationsRooms',
+              'parameters': [],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Communication rooms',
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {'$ref': '#/components/schemas/ApiResponseDto'},
+                            },
+                        },
+                    },
+                },
+              'security': [{'jwt': []}],
+              'summary': 'Get user communication room',
+              'tags': ['Communication'],
+            },
+        },
+      '/communication/{roomId}':
+        {
+          'get':
+            {
+              'operationId': 'CommunicationController_getCommunicationRoomMessages',
+              'parameters':
+                [
+                  {
+                    'name': 'roomId',
+                    'required': true,
+                    'in': 'path',
+                    'schema': {'type': 'string'},
+                  },
+                ],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Communication rooms message',
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {'$ref': '#/components/schemas/ApiResponseDto'},
+                            },
+                        },
+                    },
+                },
+              'security': [{'jwt': []}],
+              'summary': 'Get communication room messages',
+              'tags': ['Communication'],
+            },
+        },
+      '/service-providers/all-list':
+        {
+          'get':
+            {
+              'description': 'Get product and service list',
+              'operationId': 'ServiceProvidersController_getProductAndServiceList',
+              'parameters':
+                [
+                  {
+                    'name': 'latitude',
+                    'required': false,
+                    'in': 'query',
+                    'description': 'Latitude',
+                    'schema': {'type': 'string'},
+                  },
+                  {
+                    'name': 'longitude',
+                    'required': false,
+                    'in': 'query',
+                    'description': 'Longitude',
+                    'schema': {'type': 'string'},
+                  },
+                  {
+                    'name': 'search',
+                    'required': false,
+                    'in': 'query',
+                    'description': 'Search query',
+                    'schema': {'type': 'string'},
+                  },
+                  {
+                    'name': 'type',
+                    'required': false,
+                    'in': 'query',
+                    'description': 'Search type (SERVICE or PRODUCT)',
+                    'schema':
+                      {'type': 'string', 'enum': ['SERVICE', 'PRODUCT']},
+                  },
+                  {
+                    'name': 'page',
+                    'required': false,
+                    'in': 'query',
+                    'description': 'Page number (starting from 1)',
+                    'schema': {'default': 1, 'type': 'number'},
+                  },
+                  {
+                    'name': 'limit',
+                    'required': false,
+                    'in': 'query',
+                    'description': 'Number of items per page',
+                    'schema': {'default': 10, 'type': 'number'},
+                  },
+                ],
+              'responses':
+                {
+                  '201':
+                    {
+                      'description': 'Service or product list',
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {'$ref': '#/components/schemas/ApiResponseDto'},
+                            },
+                        },
+                    },
+                },
+              'summary': '',
+              'tags': ['ServiceProviders'],
+            },
+        },
+      '/service-providers/{id}':
+        {
+          'get':
+            {
+              'operationId': 'ServiceProvidersController_getProductOrService',
+              'parameters':
+                [
+                  {
+                    'name': 'id',
+                    'required': true,
+                    'in': 'path',
+                    'description': 'ID of the service or product',
+                    'schema': {'type': 'string'},
+                  },
+                ],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Service product details by ID',
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {'$ref': '#/components/schemas/ApiResponseDto'},
+                            },
+                        },
+                    },
+                },
+              'summary': 'Get service or product by ID',
+              'tags': ['ServiceProviders'],
+            },
+          'put':
+            {
+              'operationId': 'ServiceProvidersController_updateProductOrService',
+              'parameters':
+                [
+                  {
+                    'name': 'id',
+                    'required': true,
+                    'in': 'path',
+                    'description': 'ID of the service or product to update',
+                    'schema': {'type': 'string'},
+                  },
+                ],
+              'requestBody':
+                {
+                  'required': true,
+                  'content':
+                    {
+                      'application/json':
+                        {
+                          'schema':
+                            {
+                              '$ref': '#/components/schemas/UpdateServiceProductDto',
+                            },
+                        },
+                    },
+                },
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Service or product updated successfully',
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {'$ref': '#/components/schemas/ApiResponseDto'},
+                            },
+                        },
+                    },
+                },
+              'security': [{'jwt': []}],
+              'summary': 'Update service or product by ID',
+              'tags': ['ServiceProviders'],
+            },
+        },
+      '/service-providers':
+        {
+          'post':
+            {
+              'operationId': 'ServiceProvidersController_createProductOrService',
+              'parameters': [],
+              'requestBody':
+                {
+                  'required': true,
+                  'content':
+                    {
+                      'application/json':
+                        {
+                          'schema':
+                            {
+                              '$ref': '#/components/schemas/CreateServiceProductDto',
+                            },
+                        },
+                    },
+                },
+              'responses':
+                {
+                  '201':
+                    {
+                      'description': 'Service or product created successfully',
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {'$ref': '#/components/schemas/ApiResponseDto'},
+                            },
+                        },
+                    },
+                },
+              'security': [{'jwt': []}],
+              'summary': 'Create a new service or product',
+              'tags': ['ServiceProviders'],
+            },
+          'get':
+            {
+              'description': 'Get user product and service list',
+              'operationId': 'ServiceProvidersController_getUserProductAndService',
+              'parameters': [],
+              'responses':
+                {
+                  '201':
+                    {
+                      'description': 'Service or product list',
+                      'content':
+                        {
+                          'application/json':
+                            {
+                              'schema':
+                                {'$ref': '#/components/schemas/ApiResponseDto'},
+                            },
+                        },
+                    },
+                },
+              'security': [{'jwt': []}],
+              'summary': '',
+              'tags': ['ServiceProviders'],
+            },
+        },
+    },
+  'info': {'title': 'RIRI', 'description': '', 'version': '1.0', 'contact': {}},
+  'tags': [],
+  'servers':
+    [{'url': 'http://localhost:3000/', 'description': 'Local environment'}],
+  'components':
+    {
+      'securitySchemes':
+        {
+          'jwt':
+            {
+              'scheme': 'bearer',
+              'bearerFormat': 'JWT',
+              'type': 'http',
+              'description': 'Enter JWT token',
+            },
+        },
+      'schemas':
+        {
+          'LoginDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'email': {'type': 'string'},
+                  'phone': {'type': 'string'},
+                  'password': {'type': 'string'},
+                },
+              'required': ['email', 'phone', 'password'],
+            },
+          'ApiResponseDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'statusCode':
+                    {
+                      'type': 'number',
+                      'description': 'HTTP status code of the response',
+                      'example': 200,
+                    },
+                  'subCode':
+                    {
+                      'type': 'string',
+                      'description': 'Sub-code for more detailed status',
+                      'example': 'SUCCESS',
+                    },
+                  'message':
+                    {
+                      'type': 'string',
+                      'description': 'Description or message regarding the response',
+                      'example': 'Request successful',
+                    },
+                  'data':
+                    {
+                      'type': 'object',
+                      'description': 'Optional data returned by the API',
+                      'example': {'userId': 1, 'username': 'john_doe'},
+                    },
+                },
+              'required': ['statusCode', 'subCode', 'message'],
+            },
+          'RegisterDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'phone': {'type': 'string'},
+                  'password': {'type': 'string'},
+                  'firstName': {'type': 'string'},
+                  'lastName': {'type': 'string'},
+                },
+              'required': ['phone', 'password', 'firstName', 'lastName'],
+            },
+          'GetProfileResponseDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'firstName': {'type': 'string'},
+                  'lastName': {'type': 'string'},
+                  'location': {'type': 'string'},
+                  'latitude': {'type': 'number'},
+                  'longitude': {'type': 'number'},
+                  'profileImage': {'type': 'string'},
+                  'languages':
+                    {
+                      'type': 'array',
+                      'description': 'Array of supported Indian languages',
+                      'items':
+                        {
+                          'type': 'string',
+                          'enum':
+                            [
+                              'ASSAMESE',
+                              'BENGALI',
+                              'BODO',
+                              'DOGRI',
+                              'GUJARATI',
+                              'HINDI',
+                              'KANNADA',
+                              'KASHMIRI',
+                              'KONKANI',
+                              'MAITHILI',
+                              'MALAYALAM',
+                              'MANIPURI',
+                              'MARATHI',
+                              'NEPALI',
+                              'ODIA',
+                              'PUNJABI',
+                              'SANSKRIT',
+                              'SANTALI',
+                              'SINDHI',
+                              'TAMIL',
+                              'TELUGU',
+                              'URDU',
+                              'ENGLISH',
+                            ],
+                        },
+                    },
+                  'phone': {'type': 'string'},
+                  'email': {'type': 'string'},
+                  'experience': {'type': 'number'},
+                  'isVerified':
+                    {
+                      'type': 'boolean',
+                      'description': 'True if both phone and email are verified',
+                    },
+                },
+              'required':
+                [
+                  'firstName',
+                  'lastName',
+                  'location',
+                  'latitude',
+                  'longitude',
+                  'isVerified',
+                ],
+            },
+          'UpdateProfileDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'firstName': {'type': 'string'},
+                  'lastName': {'type': 'string'},
+                  'location': {'type': 'string'},
+                  'latitude': {'type': 'number'},
+                  'longitude': {'type': 'number'},
+                  'profileImage': {'type': 'string'},
+                  'languages':
+                    {
+                      'type': 'array',
+                      'description': 'Array of supported Indian languages',
+                      'items':
+                        {
+                          'type': 'string',
+                          'enum':
+                            [
+                              'ASSAMESE',
+                              'BENGALI',
+                              'BODO',
+                              'DOGRI',
+                              'GUJARATI',
+                              'HINDI',
+                              'KANNADA',
+                              'KASHMIRI',
+                              'KONKANI',
+                              'MAITHILI',
+                              'MALAYALAM',
+                              'MANIPURI',
+                              'MARATHI',
+                              'NEPALI',
+                              'ODIA',
+                              'PUNJABI',
+                              'SANSKRIT',
+                              'SANTALI',
+                              'SINDHI',
+                              'TAMIL',
+                              'TELUGU',
+                              'URDU',
+                              'ENGLISH',
+                            ],
+                        },
+                    },
+                  'phone': {'type': 'string'},
+                  'email': {'type': 'string'},
+                  'experience': {'type': 'number'},
+                },
+              'required':
+                ['firstName', 'lastName', 'location', 'latitude', 'longitude'],
+            },
+          'UpdatePasswordDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'oldPassword':
+                    {
+                      'type': 'string',
+                      'description': 'Current password of the user',
+                    },
+                  'newPassword':
+                    {
+                      'type': 'string',
+                      'description': 'New password that meets strong criteria',
+                    },
+                },
+              'required': ['oldPassword', 'newPassword'],
+            },
+          'RatingResponseDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'rating': {'type': 'number', 'example': 5},
+                  'comment': {'type': 'string', 'example': 'Great service!'},
+                  'firstName': {'type': 'string', 'example': 'John'},
+                  'lastName': {'type': 'string', 'example': 'Doe'},
+                  'profileImage':
+                    {
+                      'type': 'string',
+                      'example': 'https://example.com/profile.jpg',
+                    },
+                },
+              'required':
+                ['rating', 'comment', 'firstName', 'lastName', 'profileImage'],
+            },
+          'ObjectId': {'type': 'object', 'properties': {}},
+          'CreateRatingDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'serviceId':
+                    {
+                      'description': 'Service to be rated',
+                      'example': '64e3d3f7f4a6c1d9e6ab8b19',
+                      'allOf': [{'$ref': '#/components/schemas/ObjectId'}],
+                    },
+                  'rating':
+                    {
+                      'type': 'number',
+                      'description': 'Rating value between 1 and 5',
+                      'minimum': 1,
+                      'maximum': 5,
+                      'example': 4,
+                    },
+                  'comment':
+                    {
+                      'type': 'string',
+                      'description': 'Comment about the service or product',
+                      'maxLength': 500,
+                      'example': 'Excellent service!',
+                    },
+                },
+              'required': ['serviceId', 'rating', 'comment'],
+            },
+          'CommunicationRoomMessageResponseDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id': {'type': 'string'},
+                  'contentType': {'type': 'string'},
+                  'message': {'type': 'string'},
+                  'createdAt': {'format': 'date-time', 'type': 'string'},
+                  'updatedAt': {'format': 'date-time', 'type': 'string'},
+                  'readAt': {'format': 'date-time', 'type': 'string'},
+                  'senderId': {'type': 'string'},
+                  'receiverId': {'type': 'string'},
+                },
+              'required':
+                [
+                  'id',
+                  'contentType',
+                  'message',
+                  'createdAt',
+                  'updatedAt',
+                  'readAt',
+                  'senderId',
+                  'receiverId',
+                ],
+            },
+          'ServiceProductSummaryDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id': {'type': 'string'},
+                  'images': {'type': 'array', 'items': {'type': 'string'}},
+                },
+              'required': ['id', 'images'],
+            },
+          'CommunicationRoomResponseDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id': {'type': 'string'},
+                  'serviceProductId':
+                    {'$ref': '#/components/schemas/ServiceProductSummaryDto'},
+                  'chatContext':
+                    {'type': 'string', 'enum': ['SERVICE', 'PRODUCT']},
+                  'latestMessage': {'type': 'string'},
+                  'senderName': {'type': 'string'},
+                  'receiverName': {'type': 'string'},
+                  'updatedAt': {'format': 'date-time', 'type': 'string'},
+                },
+              'required':
+                [
+                  'id',
+                  'serviceProductId',
+                  'chatContext',
+                  'latestMessage',
+                  'senderName',
+                  'receiverName',
+                  'updatedAt',
+                ],
+            },
+          'ServiceProvidersProfileDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id':
+                    {
+                      'type': 'string',
+                      'example': '60f6a8c2e4b0b5c7e4c9b1f0',
+                      'description': 'User ID',
+                    },
+                  'first_name':
+                    {
+                      'type': 'string',
+                      'example': 'John',
+                      'description': "User's first name",
+                    },
+                  'last_name':
+                    {
+                      'type': 'string',
+                      'example': 'Doe',
+                      'description': "User's last name",
+                    },
+                  'profileImage':
+                    {
+                      'type': 'string',
+                      'example': 'https://example.com/images/profile.jpg',
+                      'description': 'Profile picture URL',
+                    },
+                  'isVerified':
+                    {
+                      'type': 'boolean',
+                      'description': 'Is user is verfied or not by using email and phone no',
+                    },
+                },
+              'required': ['id', 'first_name', 'last_name', 'isVerified'],
+            },
+          'ServiceProductResponseDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id':
+                    {
+                      'type': 'string',
+                      'description': 'ID of the service/product',
+                    },
+                  'location':
+                    {
+                      'type': 'string',
+                      'description': 'Location of the service and product',
+                      'maxLength': 400,
+                    },
+                  'longitude':
+                    {
+                      'type': 'number',
+                      'description': 'Longitude for service or product',
+                    },
+                  'latitude':
+                    {
+                      'type': 'number',
+                      'description': 'Latitude for service or product',
+                    },
+                  'price':
+                    {
+                      'type': 'number',
+                      'description': 'Price of the product or starting price of the service',
+                    },
+                  'title':
+                    {
+                      'type': 'string',
+                      'description': 'Title of the service or product',
+                      'maxLength': 200,
+                    },
+                  'description':
+                    {
+                      'type': 'string',
+                      'description': 'Description of the service or product',
+                      'maxLength': 1000,
+                    },
+                  'images':
+                    {
+                      'description': 'Images of the service or product',
+                      'type': 'array',
+                      'items': {'type': 'string'},
+                    },
+                  'category':
+                    {
+                      'type': 'string',
+                      'description': 'Category of the service or product',
+                    },
+                  'type':
+                    {
+                      'type': 'string',
+                      'description': 'Type of the service or product',
+                      'enum': ['SERVICE', 'PRODUCT'],
+                    },
+                  'skills':
+                    {
+                      'description': 'Skills required for the service (only for services)',
+                      'type': 'array',
+                      'items': {'type': 'string'},
+                    },
+                  'availableDays':
+                    {
+                      'type': 'array',
+                      'description': 'Available days of the service (only for services)',
+                      'items':
+                        {
+                          'type': 'string',
+                          'enum':
+                            [
+                              'MONDAY',
+                              'TUESDAY',
+                              'WEDNESDAY',
+                              'THURSDAY',
+                              'FRIDAY',
+                              'SATURDAY',
+                              'SUNDAY',
+                            ],
+                        },
+                    },
+                  'workingHours':
+                    {
+                      'type': 'string',
+                      'description': 'Working hours of the service (only for services)',
+                    },
+                  'serviceAreaKM':
+                    {
+                      'type': 'number',
+                      'description': 'Service area km of the service (only for services)',
+                    },
+                  'isVerified':
+                    {
+                      'type': 'boolean',
+                      'description': 'Indicates whether the service or product is verified',
+                      'default': false,
+                    },
+                  'createdAt':
+                    {
+                      'format': 'date-time',
+                      'type': 'string',
+                      'description': 'Created date of the service or product (ISO format)',
+                    },
+                  'user':
+                    {
+                      'description': 'User detail hwo upload service or product',
+                      'allOf':
+                        [
+                          {
+                            '$ref': '#/components/schemas/ServiceProvidersProfileDto',
+                          },
+                        ],
+                    },
+                },
+              'required':
+                [
+                  'id',
+                  'location',
+                  'longitude',
+                  'latitude',
+                  'price',
+                  'title',
+                  'description',
+                  'images',
+                  'category',
+                  'type',
+                  'isVerified',
+                  'createdAt',
+                  'user',
+                ],
+            },
+          'ServiceProductListResponseDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id':
+                    {
+                      'type': 'string',
+                      'description': 'ID of the service/product',
+                    },
+                  'location':
+                    {
+                      'type': 'string',
+                      'description': 'Location of the service and product',
+                      'maxLength': 400,
+                    },
+                  'price':
+                    {
+                      'type': 'number',
+                      'description': 'Price of the product or starting price of the service',
+                    },
+                  'title':
+                    {
+                      'type': 'string',
+                      'description': 'Title of the service or product',
+                      'maxLength': 200,
+                    },
+                  'images':
+                    {
+                      'description': 'Images of the service or product',
+                      'type': 'array',
+                      'items': {'type': 'string'},
+                    },
+                  'isVerified':
+                    {
+                      'type': 'boolean',
+                      'description': 'Indicates whether the service or product is verified',
+                      'default': false,
+                    },
+                  'type':
+                    {
+                      'type': 'string',
+                      'description': 'Is this a service or product',
+                      'default': false,
+                    },
+                },
+              'required':
+                [
+                  'id',
+                  'location',
+                  'price',
+                  'title',
+                  'images',
+                  'isVerified',
+                  'type',
+                ],
+            },
+          'UpdateServiceProductDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'location':
+                    {
+                      'type': 'string',
+                      'description': 'Location of the service and product',
+                      'maxLength': 400,
+                    },
+                  'longitude':
+                    {
+                      'type': 'number',
+                      'description': 'Longitude for service or product',
+                    },
+                  'latitude':
+                    {
+                      'type': 'number',
+                      'description': 'Latitude for service or product',
+                    },
+                  'price':
+                    {
+                      'type': 'number',
+                      'description': 'Price of the product or starting price of the service',
+                    },
+                  'title':
+                    {
+                      'type': 'string',
+                      'description': 'Title of the service or product',
+                      'maxLength': 200,
+                    },
+                  'description':
+                    {
+                      'type': 'string',
+                      'description': 'Description of the service or product',
+                      'maxLength': 1000,
+                    },
+                  'images':
+                    {
+                      'description': 'Images of the service or product',
+                      'example':
+                        [
+                          'https://example.com/image1.jpg',
+                          'https://example.com/image2.jpg',
+                        ],
+                      'type': 'array',
+                      'items': {'type': 'string'},
+                    },
+                  'category':
+                    {
+                      'type': 'string',
+                      'description': 'Category of the service or product',
+                    },
+                  'type':
+                    {
+                      'type': 'string',
+                      'description': 'Type of the service or product',
+                      'enum': ['SERVICE', 'PRODUCT'],
+                    },
+                  'skills':
+                    {
+                      'description': 'Skills required for the service (only for services)',
+                      'example': ['Plumbing', 'Electrician'],
+                      'type': 'array',
+                      'items': {'type': 'string'},
+                    },
+                  'availableDays':
+                    {
+                      'type': 'array',
+                      'description': 'Available days of the service (only for services)',
+                      'items':
+                        {
+                          'type': 'string',
+                          'enum':
+                            [
+                              'MONDAY',
+                              'TUESDAY',
+                              'WEDNESDAY',
+                              'THURSDAY',
+                              'FRIDAY',
+                              'SATURDAY',
+                              'SUNDAY',
+                            ],
+                        },
+                    },
+                  'workingHours':
+                    {
+                      'type': 'string',
+                      'description': 'Working hours of the service (only for services)',
+                    },
+                  'serviceAreaKM':
+                    {
+                      'type': 'number',
+                      'description': 'Service area km of the service (only for services)',
+                    },
+                },
+              'required':
+                [
+                  'location',
+                  'longitude',
+                  'latitude',
+                  'price',
+                  'title',
+                  'description',
+                  'images',
+                  'category',
+                  'type',
+                ],
+            },
+          'CreateServiceProductDto':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'location':
+                    {
+                      'type': 'string',
+                      'description': 'Location of the service and product',
+                      'maxLength': 400,
+                    },
+                  'longitude':
+                    {
+                      'type': 'number',
+                      'description': 'Longitude for service or product',
+                    },
+                  'latitude':
+                    {
+                      'type': 'number',
+                      'description': 'Latitude for service or product',
+                    },
+                  'price':
+                    {
+                      'type': 'number',
+                      'description': 'Price of the product or starting price of the service',
+                    },
+                  'title':
+                    {
+                      'type': 'string',
+                      'description': 'Title of the service or product',
+                      'maxLength': 200,
+                    },
+                  'description':
+                    {
+                      'type': 'string',
+                      'description': 'Description of the service or product',
+                      'maxLength': 1000,
+                    },
+                  'images':
+                    {
+                      'description': 'Images of the service or product',
+                      'example':
+                        [
+                          'https://example.com/image1.jpg',
+                          'https://example.com/image2.jpg',
+                        ],
+                      'type': 'array',
+                      'items': {'type': 'string'},
+                    },
+                  'category':
+                    {
+                      'type': 'string',
+                      'description': 'Category of the service or product',
+                    },
+                  'type':
+                    {
+                      'type': 'string',
+                      'description': 'Type of the service or product',
+                      'enum': ['SERVICE', 'PRODUCT'],
+                    },
+                  'skills':
+                    {
+                      'description': 'Skills required for the service (only for services)',
+                      'example': ['Plumbing', 'Electrician'],
+                      'type': 'array',
+                      'items': {'type': 'string'},
+                    },
+                  'availableDays':
+                    {
+                      'type': 'array',
+                      'description': 'Available days of the service (only for services)',
+                      'items':
+                        {
+                          'type': 'string',
+                          'enum':
+                            [
+                              'MONDAY',
+                              'TUESDAY',
+                              'WEDNESDAY',
+                              'THURSDAY',
+                              'FRIDAY',
+                              'SATURDAY',
+                              'SUNDAY',
+                            ],
+                        },
+                    },
+                  'workingHours':
+                    {
+                      'type': 'string',
+                      'description': 'Working hours of the service (only for services)',
+                    },
+                  'serviceAreaKM':
+                    {
+                      'type': 'number',
+                      'description': 'Service area km of the service (only for services)',
+                    },
+                },
+              'required':
+                [
+                  'location',
+                  'longitude',
+                  'latitude',
+                  'price',
+                  'title',
+                  'description',
+                  'images',
+                  'category',
+                  'type',
+                ],
+            },
+        },
+    },
+}
